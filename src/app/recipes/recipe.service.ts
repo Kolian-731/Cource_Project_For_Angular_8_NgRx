@@ -1,5 +1,6 @@
 import { EventEmitter } from '@angular/core';
 import { Recipe } from './recipe.model';
+import { Ingredient } from '../shared/ingredient.model';
 
 export class RecipeService {
 
@@ -7,20 +8,35 @@ export class RecipeService {
 
   private recipes: Recipe[] = [
     new Recipe(
-      "A test Recipe",
-      "This Is simply a test",
-      "https://cdn.apartmenttherapy.info/image/upload/v1564775676/k/Photo/Recipes/2019-08-how-to-juiciest-turkey-meatballs/How-to-Make-the-Best-Juiciest-Turkey-Meatballs_055.jpg"
+      "Borshch",
+      "This Is very tasty Borshch",
+      "https://cdn.lifehacker.ru/wp-content/uploads/2014/12/ob-05_1568611223-1140x570.jpg",
+      [
+        new Ingredient('Meat', 1),
+        new Ingredient('Table beet', 2),
+        new Ingredient('Bean ', 20)
+      ]
     ),
     new Recipe(
-      "A test Recipe",
-      "This Is simply a test",
-      "https://cookieandkate.com/images/2019/02/best-shakshuka-recipe-3-768x1154.jpg"
+      "Вoughnut",
+      "Fragrant donuts",
+      "https://www.koolinar.ru/all_image/recipes/145/145958/recipe_01cab73b-3246-4078-8436-0c3b3e3ee95c_large.jpg",
+      [
+        new Ingredient('Yeast ', 1),
+        new Ingredient('Flour ', 5),
+        new Ingredient('Water ', 2)
+      ]
     ),
 
     new Recipe(
-      "A test Recipe",
-      "This Is simply a test",
-      "https://www.seriouseats.com/2019/07/20190618-grilled-turkish-chicken-wings-vicky-wasik-13.jpg"
+      "Dumplings with potatoes",
+      "Fast and very delicious",
+      "https://www.gastronom.ru/binfiles/images/20170208/b2faa08a.jpg",
+      [
+        new Ingredient('Dough ', 3),
+        new Ingredient('Sour cream ', 1),
+        new Ingredient('Potatoes ', 10)
+      ]
     )
   ];
 
