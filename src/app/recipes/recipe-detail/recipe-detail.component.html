@@ -16,10 +16,10 @@
       <button class="btn btn-primary dropdown-toggle">
         Manage Recipe <span class="caret"></span>
       </button>
-      <ul class="dropdown-menu">
-        <li href="#">To Shopping List</li>
+      <ul class="dropdown-menu" appDropdown>
+        <li (click)="onAddToShoppingList()" style="cursor: pointer ;">To Shopping List</li>
         <li href="#">Edit Recipe</li>
-        <li href="#">Add Igredients to Shopping List</li>
+        <li href="#">Delete recipe</li>
       </ul>
     </div>
   </div>
