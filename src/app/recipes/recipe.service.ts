@@ -31,7 +31,7 @@ export class RecipeService {
     ),
 
     new Recipe(
-      "Dumplings with potatoes",
+      "Vareniki with potatoes",
       "Fast and very delicious",
       "https://www.gastronom.ru/binfiles/images/20170208/b2faa08a.jpg",
       [
