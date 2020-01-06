@@ -10,3 +10,7 @@ input.ng-invalid.ng-touched,
 textarea.ng-invalid.ng-touched {
   border: 1px solid red;
  }
+
+ .col-xs-12 img{
+  width: 500px;
+ }
