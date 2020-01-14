@@ -24,7 +24,7 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  signup(email: string, password: string) {
+  signUp(email: string, password: string) {
     return this.http
       .post<AuthResponseData>(
         'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBd9WHiSz68U6OeFZIfCwxSQ0AO6MBTLHU'
@@ -33,10 +33,18 @@ export class AuthService {
           password: password,
           returnSecureToken: true
         }
-      ).pipe(catchError(this.handleErrore));
+      ).pipe(catchError(this.handleErrore), tap(resData => {
+        this.handleAuthentification
+          (
+            resData.email,
+            resData.localId,
+            resData.idToken,
+            +resData.expiresIn
+          );
+      }));
   }
 
-  login(email: string, password: string) {
+  logIn(email: string, password: string) {
     return this.http
       .post<AuthResponseData>(
         'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBd9WHiSz68U6OeFZIfCwxSQ0AO6MBTLHU',
@@ -84,7 +92,7 @@ export class AuthService {
     }
   }
 
-  logout() {
+  logOut() {
     this.user.next(null);
     this.router.navigate(['/auth']);
     localStorage.removeItem('userData');
@@ -96,7 +104,7 @@ export class AuthService {
 
   autoLogout(expirationDuration: number) {
     this.tokenExpirationTimer = setTimeout(() => {
-      this.logout();
+      this.logOut();
     }, expirationDuration);
   }
 
