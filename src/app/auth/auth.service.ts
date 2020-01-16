@@ -141,9 +141,9 @@ export class AuthService {
         errorMesage = 'This password is not correct.';
         break;
 
-      // case 'USER_DISABLED':
-      //   errorMesage = 'This password is not correct.';
-      //   break;
+      case 'USER_DISABLED':
+        errorMesage = 'This password is not correct.';
+        break;
 
     }
     return throwError(errorMesage);
