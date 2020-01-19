@@ -1,4 +1,4 @@
-# ProjectFor95Lesson
+# Cource Projecе For Angular 8 NgRx
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.20.
 
