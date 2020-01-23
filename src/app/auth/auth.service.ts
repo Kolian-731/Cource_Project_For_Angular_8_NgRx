@@ -1,14 +1,14 @@
-import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { throwError, BehaviorSubject } from "rxjs";
-import { catchError, tap } from "rxjs/operators";
-import { Store } from "@ngrx/store";
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { throwError, BehaviorSubject } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
 
-import { User } from "./user.model";
-import { environment } from "src/environments/environment";
-import * as fromApp from "../store/app.reducer";
-import * as AuthActions from "../auth/store/auth.action";
+import { User } from './user.model';
+import { environment } from 'src/environments/environment';
+import * as fromApp from '../store/app.reducer';
+import * as AuthActions from '../auth/store/auth.action';
 
 export interface AuthResponseData {
   idToken: string;
@@ -16,11 +16,11 @@ export interface AuthResponseData {
   refreshToken: string;
   expiresIn: string;
   localId: string;
-  registered: boolean;
+  registered?: boolean;
 }
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class AuthService {
   // user = new BehaviorSubject<User>(null);
@@ -35,7 +35,7 @@ export class AuthService {
   signUp(email: string, password: string) {
     return this.http
       .post<AuthResponseData>(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" +
+        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' +
           environment.firebaseAPIKey,
         {
           email: email,
@@ -59,7 +59,7 @@ export class AuthService {
   logIn(email: string, password: string) {
     return this.http
       .post<AuthResponseData>(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" +
+        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' +
           environment.firebaseAPIKey,
         {
           email: email,
@@ -86,7 +86,7 @@ export class AuthService {
       id: string;
       _token: string;
       _tokenExpirationDate: string;
-    } = JSON.parse(localStorage.getItem("userData"));
+    } = JSON.parse(localStorage.getItem('userData'));
     if (!userData) {
       return;
     }
@@ -119,8 +119,8 @@ export class AuthService {
   logOut() {
     // this.user.next(null);
     this.store.dispatch(new AuthActions.Logout());
-    this.router.navigate(["/auth"]);
-    localStorage.removeItem("userData");
+    this.router.navigate(['/auth']);
+    localStorage.removeItem('userData');
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
     }
@@ -153,29 +153,29 @@ export class AuthService {
       })
     );
     this.autoLogout(expiresIn * 1000);
-    localStorage.setItem("userData", JSON.stringify(user));
+    localStorage.setItem('userData', JSON.stringify(user));
   }
 
   private handleErrore(errorRes: HttpErrorResponse) {
-    let errorMesage = "An unknown error occurred !!!";
+    let errorMesage = 'An unknown error occurred !!!';
     if (!errorRes.error || !errorRes.error.error) {
       return throwError(errorMesage);
     }
     switch (errorRes.error.error.message) {
-      case "EMAIL_EXISTS":
-        errorMesage = "This email exists already !!!";
+      case 'EMAIL_EXISTS':
+        errorMesage = 'This email exists already !!!';
         break;
 
-      case "EMAIL_NOT_FOUND":
-        errorMesage = "This email does not exist.";
+      case 'EMAIL_NOT_FOUND':
+        errorMesage = 'This email does not exist.';
         break;
 
-      case "INVALID_PASSWORD":
-        errorMesage = "This password is not correct.";
+      case 'INVALID_PASSWORD':
+        errorMesage = 'This password is not correct.';
         break;
 
-      case "USER_DISABLED":
-        errorMesage = "This password is not correct.";
+      case 'USER_DISABLED':
+        errorMesage = 'This password is not correct.';
         break;
     }
     return throwError(errorMesage);
